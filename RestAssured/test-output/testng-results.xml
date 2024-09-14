@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-09-14T22:40:00 IST" name="Default suite" finished-at="2024-09-14T22:40:03 IST" duration-ms="3422">
+    <groups>
+    </groups>
+    <test started-at="2024-09-14T22:40:00 IST" name="Default test" finished-at="2024-09-14T22:40:03 IST" duration-ms="3422">
+      <class name="LambokWithJsonArray.CreateUserWithJsonArrayLombokPOJO">
+        <test-method signature="createAnimalUserWithJsonArray_LombokBuilder()[pri:0, instance:LambokWithJsonArray.CreateUserWithJsonArrayLombokPOJO@625732]" started-at="2024-09-14T22:40:00 IST" name="createAnimalUserWithJsonArray_LombokBuilder" finished-at="2024-09-14T22:40:03 IST" duration-ms="3348" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createAnimalUserWithJsonArray_LombokBuilder -->
+      </class> <!-- LambokWithJsonArray.CreateUserWithJsonArrayLombokPOJO -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
