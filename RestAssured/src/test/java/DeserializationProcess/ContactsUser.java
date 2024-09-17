@@ -20,7 +20,7 @@ public class ContactsUser {
 	private String lastName;
 	private String birthdate;
 	private String email;
-	private Integer phone;
+	private String phone;
 	private String street1;
 	private String street2;
 	private String city;

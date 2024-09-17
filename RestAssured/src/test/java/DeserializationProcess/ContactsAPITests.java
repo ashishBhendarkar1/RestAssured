@@ -26,7 +26,7 @@ public class ContactsAPITests {
 		      .lastName("xyz")
 		      .birthdate("2024-01-01")
 		      .email("abc@gmail.com")
-		      .phone(99999999)
+		      .phone("99999999")
 		      .street1("nagar road")
 		      .street2("na")
 		      .city("pune")
