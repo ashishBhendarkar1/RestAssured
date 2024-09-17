@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="PostWithMultipleOptions.PostAPIWithDifferetData">
+      <class name="DeserializationProcess.ContactsAPITests">
         <methods>
-          <include name="bodyWithPDFTest"/>
+          <include name="createContactsTest"/>
         </methods>
-      </class> <!-- PostWithMultipleOptions.PostAPIWithDifferetData -->
+      </class> <!-- DeserializationProcess.ContactsAPITests -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
