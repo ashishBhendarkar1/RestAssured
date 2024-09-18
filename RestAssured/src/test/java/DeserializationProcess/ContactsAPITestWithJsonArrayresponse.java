@@ -2,6 +2,7 @@ package DeserializationProcess;
 
 import static io.restassured.RestAssured.given;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Assert;
@@ -37,32 +38,26 @@ public class ContactsAPITestWithJsonArrayresponse {
 		try {
 			ContactsUser[] contactres = mapper.readValue(getresponse.body().asString(),ContactsUser[].class);
 		
-			List<String> objids;
-
-			
+						
 			for (ContactsUser contUser : contactres) {
 				System.out.println("contact user id: "+contUser.get_id());
 				System.out.println("contact user first name: "+contUser.getFirstName());
 				
 				System.out.println("=======================");
-				
-			//					objids..add(contUser.get_id());
-			//	System.out.println("contactres object list:"+objids);
-				
-				
-		//	Assert.assertNotNull(contUser.get_id());
+							
 			}
 			
-			//System.out.println("contactres object list:"+objids);
-			
-		//collect all the ids in Array list and verify all ids are not null	
-			
-			List<String> ids = getresponse.jsonPath().get("_id");
-			for (String s : ids) {
-				System.out.println("contact id is :"+s);
-				Assert.assertNotNull(s);
+			//collect all the ids in Array list and verify all ids are not null
+			List<String> contactsobjids = new ArrayList<String>();
+
+
+			for (ContactsUser contUser1 : contactres) {
+				contactsobjids.add(contUser1.get_id());
+				System.out.println("contactres object list:"+contactsobjids);
+				
+				Assert.assertNotNull(contactsobjids);
+				
 			}
-			
 			
 			} catch (JsonMappingException e) {
 			e.printStackTrace();
