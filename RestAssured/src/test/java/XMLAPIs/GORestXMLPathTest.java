@@ -3,6 +3,10 @@ package XMLAPIs;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
@@ -38,7 +42,7 @@ public class GORestXMLPathTest {
 	
 	System.out.println("------------");
 	
-	//fetch all id value
+	//fetch all id values
 	List<String> ids = Xmlpath.getList("objects.object.id");
 	System.out.println(ids);
 	System.out.println(ids.size());
@@ -49,6 +53,39 @@ public class GORestXMLPathTest {
 	System.out.println("------------");
 	
 	
+	}
+	
+	@Test
+	public void Xmltest_With_Deserialization() {
+		RestAssured.baseURI = "https://gorest.co.in";
+
+		Response response = given().when().get("/public/v2/users.xml").then().extract().response();
+	
+		//create a object of XmlMapper class
+		XmlMapper mapper = new XmlMapper();
+		
+		try {
+			UserData user = mapper.readValue(response.getBody().asString(), UserData.class);
+			
+			
+			System.out.println("id is : "+user.getObject().get(0).getId());
+			System.out.println("email is : "+user.getObject().get(0).getEmail());
+			System.out.println("gender is : "+user.getObject().get(0).getGender());
+			System.out.println("name is : "+user.getObject().get(0).getName());
+			System.out.println("status is : "+user.getObject().get(0).getStatus());
+	
+//not working			
+			System.out.println("objects type is : "+user.getObjects());
+			System.out.println("id type is : "+user.getObject().get(0).getType());
+			
+			
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

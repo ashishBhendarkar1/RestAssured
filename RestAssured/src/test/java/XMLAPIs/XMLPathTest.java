@@ -1,7 +1,13 @@
 package XMLAPIs;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import XMLAPIs.MRData.Circuit;
 import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
@@ -90,6 +96,39 @@ public class XMLPathTest {
 		String url = Xmlpath.getString("**.findAll{ it.@circuitId == 'americas'}.@url");
 		System.out.println("americas url is :"+url);
 
+	}
+	
+	@Test
+	public void XmlTest_With_XMLResponse_Deserialization() {
+		RestAssured.baseURI = "http://ergast.com";
+
+		Response response = given().when().get("/api/f1/2017/circuits.xml").then().extract().response();
+
+		//create a object of XmlMapper class : deserialization
+		XmlMapper mapper = new XmlMapper();
+		
+		try {
+			MRData mrdata = mapper.readValue(response.body().asString(), MRData.class);
+			System.out.println(mrdata.getSeries());
+			System.out.println(mrdata.getCircuittable().getSeason());
+			
+			//assertions:
+			Assert.assertNotNull(mrdata);
+			Assert.assertEquals(mrdata.getSeries(), "f1");
+			Assert.assertEquals(mrdata.getCircuittable().getSeason(), 2017);
+			
+		Circuit circuit =mrdata.getCircuittable().getCircuit().get(0);
+		Assert.assertEquals(circuit.getCircuitname(), "Albert Park Grand Prix Circuit");
+		Assert.assertEquals(circuit.getCircuitId(), "albert_park");
+		Assert.assertEquals(circuit.getLocation().getCountry(), "Australia");
+			
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
