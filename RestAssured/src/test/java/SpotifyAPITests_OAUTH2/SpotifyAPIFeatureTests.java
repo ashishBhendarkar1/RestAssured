@@ -1,4 +1,4 @@
-package SpotifyAPITests;
+package SpotifyAPITests_OAUTH2;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -87,6 +87,42 @@ public class SpotifyAPIFeatureTests {
 		       .statusCode(200)
 		       .and()
 		        .body("display_name", equalTo("Ashish"));
+	}
+	
+//-ve testcase
+	
+	@Test
+	public void checkWith_WrongClientID() {
+		
+       RestAssured.baseURI = "https://accounts.spotify.com";
+		
+		given().log().all()
+		 .contentType(ContentType.URLENC)
+		  .formParam("grant_type", "client_credentials")
+		   .formParam("client_id", "b8171f9bfda1440b995a28a02d5c878bbb")
+		    .formParam("client_secret" , "bae8ffaae4044eaabcf2f51a88208409")
+		   .when().log().all()
+		    .post("/api/token")
+		     .then().log().all()
+		      .assertThat()
+		       .statusCode(400)
+		        .and()
+		         .extract()
+		          .path("error", "invalid_client");
+	}
+	
+	@Test
+	public void checkWith_WrongTokenID() {
+		given().log().all()
+		 .header("Authorization","Bearer "+token +" ID")
+		  .pathParam("playlistID", "3cEYpjA9oz9GiPac4AsH4n")
+		   .when().log().all()
+		    .get("/v1/playlists/{playlistID}")
+		     .then().log().all()
+		      .assertThat()
+		       .statusCode(404)
+		        .and()
+		         .statusLine("HTTP/1.1 404 Not Found");
 	}
 
 }
