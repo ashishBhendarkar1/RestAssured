@@ -29,6 +29,7 @@ public class CreateUserTest {
 		postResponse.prettyPrint();
 		Integer userId = postResponse.jsonPath().get("id");
 		System.out.println("userid ==>"+userId);
+		
 }
 	
 	@Test
