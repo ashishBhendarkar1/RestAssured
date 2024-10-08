@@ -1,2 +1,2 @@
 # RestAssured
-using rest assumed library with java binding 
+in this repo covered restassured concept
