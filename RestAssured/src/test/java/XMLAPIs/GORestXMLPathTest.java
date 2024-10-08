@@ -25,6 +25,7 @@ public class GORestXMLPathTest {
 		Response response = given().when().get("/public/v2/users.xml").then().extract().response();
 	
 	String responsebody = response.getBody().asString();
+	System.out.println(responsebody);
 	XmlPath Xmlpath = new XmlPath(responsebody);
 	
 	//fetch objects type="array"
@@ -50,10 +51,9 @@ public class GORestXMLPathTest {
 		System.out.println(ids.contains("7415666"));
 		break;
 	}
-	System.out.println("------------");
-	
-	
+	System.out.println("------------");	
 	}
+	
 	
 	@Test
 	public void Xmltest_With_Deserialization() {
@@ -74,9 +74,11 @@ public class GORestXMLPathTest {
 			System.out.println("name is : "+user.getObject().get(0).getName());
 			System.out.println("status is : "+user.getObject().get(0).getStatus());
 	
-//not working			
-			System.out.println("objects type is : "+user.getObjects());
-			System.out.println("id type is : "+user.getObject().get(0).getType());
+           //Accessing the root level attribute type			
+			System.out.println("objects type is : "+user.getType());
+			
+		   //Accessing the type attribute for the first id	
+			System.out.println("id type is : "+user.getObject().get(0).getId().getType());
 			
 			
 		} catch (JsonMappingException e) {

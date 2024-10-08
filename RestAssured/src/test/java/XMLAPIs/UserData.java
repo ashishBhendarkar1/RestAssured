@@ -5,16 +5,14 @@ import java.util.List;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 import lombok.Data;
 
 @Data
-@JacksonXmlRootElement
+@JacksonXmlRootElement(localName = "objects")
 public class UserData {
-	
-	@JacksonXmlProperty(localName = "objects")
-	private String Objects;
-	
+		
 	@JacksonXmlProperty(isAttribute = true , localName = "type")
 	private String Type;
 	
@@ -28,10 +26,7 @@ public class UserData {
 public static class object{
 	
 	@JacksonXmlProperty(localName = "id")
-	private int Id;
-	
-	@JacksonXmlProperty(isAttribute = true , localName = "type")
-	private String Type;
+	private idwrapper Id;
 	
 	@JacksonXmlProperty(localName = "name")
 	private String Name;
@@ -44,6 +39,18 @@ public static class object{
 	
 	@JacksonXmlProperty(localName = "status")
 	private String Status;
+	
+	
+}
+
+@Data
+public static class idwrapper{
+	
+	@JacksonXmlText
+	private int typevalue;  //this hold the integer value of the id
+	
+	@JacksonXmlProperty(isAttribute = true , localName = "type")
+	private String Type; //this holds the type attribute of id
 	
 	
 }
